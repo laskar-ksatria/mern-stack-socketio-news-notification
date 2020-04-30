@@ -1,0 +1,38 @@
+//POST USER
+###
+POST http://localhost:3010/users 
+Content-Type: application/json
+
+{
+    "username": "winda",
+    "password": "1234"
+}
+
+//LOGIN
+###
+POST http://localhost:3010/users/login 
+Content-Type: application/json
+
+{
+    "username": "laskarks",
+    "password": "1234"
+}
+
+//CREATE NEWS
+###
+POST http://localhost:3010/news 
+Content-Type: application/json
+
+{
+    "title": "Hello4",
+    "description": "Hallo this good night"
+}
+
+
+//Read Notification
+###
+GET http://localhost:3010/notification
+
+
+###
+POST http://34.87.27.86/admin/login
