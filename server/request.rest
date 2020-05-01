@@ -4,7 +4,7 @@ POST http://localhost:3010/users
 Content-Type: application/json
 
 {
-    "username": "winda",
+    "username": "owl",
     "password": "1234"
 }
 
@@ -24,10 +24,9 @@ POST http://localhost:3010/news
 Content-Type: application/json
 
 {
-    "title": "Hello4",
-    "description": "Hallo this good night"
+    "title": "New1",
+    "description": "Happy New Year"
 }
-
 
 //Read Notification
 ###

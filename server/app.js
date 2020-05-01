@@ -28,7 +28,7 @@ app.use(require('./routes'));
 
 Io.on('connection', socket => {
     console.log('Io connect');
-
+    
     socket.on('disconnect', () => console.log('Io disconnect'));
 });
 

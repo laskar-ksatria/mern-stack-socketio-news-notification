@@ -10,6 +10,10 @@ const userNotifSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    read_status: {
+        type: Boolean,
+        default: false,
     }
 }, {versionKey: false, timestamps: {createdAt: 'createdAt'}});
 

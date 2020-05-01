@@ -6,6 +6,9 @@ const Auth = (req,res,next) => {
         verifyToken(token, (err, decoded) => {
             if (err) {
                 res.status(500).json({message: 'Uppss, something wrong, please try again'})
+            }else {
+                req.decoded = decoded;
+                next();
             }
         })
     }else {

@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Register from './views/Register';
+import Login from './views/Login';
+import Main from './views/Main';
+import { withRouter, Switch, Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  componentDidMount() {
+    if (localStorage.getItem('merntoken')) {
+      this.props.history.push('/main')
+    }else {
+      if (this.props.location.pathname === '/register') {
+        this.props.history.push(this.props.location.pathname);
+      }else {
+        this.props.history.push('/');
+      }
+    }
+  }
+
+  render() {
+    return (
+      
+        <div className="App">
+            <Switch>
+              <Route exact path="/">
+                <Login />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+              <Route path="/main">
+                <Main />
+              </Route>
+            </Switch>
+        </div>
+    )
+  }
+
 }
 
-export default App;
+export default withRouter(App);

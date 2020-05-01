@@ -16,6 +16,7 @@ class Controller {
 
     static createUser(req,res,next) {
         let { username, password } = req.body;
+        console.log(req.body)
         User.create({username, password})
             .then(function(user) {
                 res.status(200).json(user)
@@ -60,9 +61,17 @@ class Controller {
             .catch(err => res.status(500).json({message: 'Upps something wrong'}))
     };
 
+    static readMyAccount(req,res,next) {
+        User.findOne({_id: req.decoded.id})
+            .then(user => {
+                res.status(200).json(user)
+            })
+            .catch(err => res.status(500).json({message: 'Ooopss, something wrong'}))
+    }
+
     static createNews(req,res,next) {
+        let Io = req.Io;
         let { title, description } = req.body;
-        console.log(req.body)
         let sendNews;
         News.create({title, description})
             .then(value => {
@@ -77,7 +86,7 @@ class Controller {
                 return Promise.all(sendingNews)
             })
             .then(values => {
-                console.log(values, 'This is value')
+                Io.emit('news-notif', values);
                 res.status(200).json(sendNews);
             })
             .catch(err => res.status(500).json({message: 'Upps something wrong'}))
@@ -91,7 +100,26 @@ class Controller {
                 res.status(200).json(values)
             })
             .catch(err => res.json(500).json({message: "upps something wrong"}))
-    }
+    };
+
+    static readMyNews(req,res,next) {
+        let userId = req.decoded.id;
+        UserNotif.find({user: userId})
+            .then(mynews => {
+                res.status(200).json(mynews);
+            })
+            .catch(err => res.status(500).json({message: 'Upps, something going wrong'}))
+    };
+
+    static updateRead(req,res,next) {
+        console.log(req.params.notifId);
+        let notifId = req.params.notifId;
+        UserNotif.updateOne({_id: notifId}, {read_status: true})
+            .then(() => {
+                res.status(201).json({message: 'News has been read'})
+            })
+            .catch(err => res.status(500).json({message: "Upps, Something going wrong"}))
+    };
 
     
 
